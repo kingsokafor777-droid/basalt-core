@@ -1,0 +1,95 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "basalt-core"
+version = "0.1.0"
+description = "Normalized security finding schema, risk model, control catalog and scanner interface for the Basalt platform."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [{ name = "Kingsley Ekene" }]
+keywords = ["security", "cspm", "sarif", "ocsf", "compliance", "cloud-security"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Typing :: Typed",
+]
+dependencies = ["pydantic>=2.6,<3"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.5",
+    "mypy>=1.10",
+    "build>=1.2",
+]
+
+[project.scripts]
+basalt = "basalt_core.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/kingsokafor777-droid/basalt-core"
+Source = "https://github.com/kingsokafor777-droid/basalt-core"
+Issues = "https://github.com/kingsokafor777-droid/basalt-core/issues"
+Changelog = "https://github.com/kingsokafor777-droid/basalt-core/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/basalt_core"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/docs", "/README.md", "/LICENSE", "/CHANGELOG.md"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "C4", "SIM", "RUF", "ARG", "PTH"]
+# RUF022: __all__ is grouped by concern (models / severity / controls / plugins /
+# emitters) rather than alphabetised, which reads better as API documentation.
+# UP042/UP017: enum.StrEnum and datetime.UTC are 3.11+. The floor is 3.10 so that
+# Ubuntu 22.04 LTS (supported into 2027) can run this without a toolchain upgrade.
+# See basalt_core/_compat.py.
+ignore = ["N818", "RUF012", "A003", "RUF022", "UP042", "UP017"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ARG", "PTH"]
+"src/basalt_core/cli.py" = ["PTH123"]
+"src/basalt_core/controls.py" = ["PTH123"]
+"src/basalt_core/emitters/base.py" = ["A002"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_unreachable = true
+plugins = ["pydantic.mypy"]
+files = ["src/basalt_core"]
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+
+[tool.coverage.run]
+source = ["basalt_core"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]
+fail_under = 85

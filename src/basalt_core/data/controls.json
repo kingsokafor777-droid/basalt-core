@@ -1,0 +1,97 @@
+{
+  "frameworks": [
+    {
+      "id": "nist-800-53-r5",
+      "name": "NIST SP 800-53 Revision 5",
+      "version": "5.1.1",
+      "source": "https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final",
+      "authoritative": false,
+      "controls": [
+        {"id": "AC-2", "title": "Account Management", "family": "Access Control"},
+        {"id": "AC-3", "title": "Access Enforcement", "family": "Access Control"},
+        {"id": "AC-6", "title": "Least Privilege", "family": "Access Control"},
+        {"id": "AC-17", "title": "Remote Access", "family": "Access Control"},
+        {"id": "AU-2", "title": "Event Logging", "family": "Audit and Accountability"},
+        {"id": "AU-6", "title": "Audit Record Review, Analysis, and Reporting", "family": "Audit and Accountability"},
+        {"id": "AU-9", "title": "Protection of Audit Information", "family": "Audit and Accountability"},
+        {"id": "AU-12", "title": "Audit Record Generation", "family": "Audit and Accountability"},
+        {"id": "CM-2", "title": "Baseline Configuration", "family": "Configuration Management"},
+        {"id": "CM-6", "title": "Configuration Settings", "family": "Configuration Management"},
+        {"id": "CM-7", "title": "Least Functionality", "family": "Configuration Management"},
+        {"id": "CP-9", "title": "System Backup", "family": "Contingency Planning"},
+        {"id": "IA-2", "title": "Identification and Authentication (Organizational Users)", "family": "Identification and Authentication"},
+        {"id": "IA-5", "title": "Authenticator Management", "family": "Identification and Authentication"},
+        {"id": "RA-5", "title": "Vulnerability Monitoring and Scanning", "family": "Risk Assessment"},
+        {"id": "SC-7", "title": "Boundary Protection", "family": "System and Communications Protection"},
+        {"id": "SC-8", "title": "Transmission Confidentiality and Integrity", "family": "System and Communications Protection"},
+        {"id": "SC-12", "title": "Cryptographic Key Establishment and Management", "family": "System and Communications Protection"},
+        {"id": "SC-13", "title": "Cryptographic Protection", "family": "System and Communications Protection"},
+        {"id": "SC-28", "title": "Protection of Information at Rest", "family": "System and Communications Protection"},
+        {"id": "SI-4", "title": "System Monitoring", "family": "System and Information Integrity"},
+        {"id": "SI-7", "title": "Software, Firmware, and Information Integrity", "family": "System and Information Integrity"}
+      ]
+    },
+    {
+      "id": "cis-aws",
+      "name": "CIS Amazon Web Services Foundations Benchmark",
+      "version": "unpinned-seed",
+      "source": "https://www.cisecurity.org/benchmark/amazon_web_services",
+      "authoritative": false,
+      "controls": [
+        {"id": "iam.root-access-key", "title": "No root user account access key exists", "family": "Identity and Access Management"},
+        {"id": "iam.root-mfa", "title": "MFA is enabled for the root user account", "family": "Identity and Access Management"},
+        {"id": "iam.user-mfa", "title": "MFA is enabled for all IAM users with a console password", "family": "Identity and Access Management"},
+        {"id": "iam.unused-credentials", "title": "Credentials unused for an extended period are disabled", "family": "Identity and Access Management"},
+        {"id": "iam.key-rotation", "title": "Access keys are rotated on a defined schedule", "family": "Identity and Access Management"},
+        {"id": "iam.no-full-admin-policy", "title": "No customer-managed policy grants full administrative privileges", "family": "Identity and Access Management"},
+        {"id": "iam.password-policy", "title": "A strong IAM password policy is enforced", "family": "Identity and Access Management"},
+        {"id": "storage.bucket-public-access", "title": "S3 Block Public Access is enabled", "family": "Storage"},
+        {"id": "storage.bucket-encryption", "title": "S3 buckets enforce encryption at rest", "family": "Storage"},
+        {"id": "storage.bucket-tls-only", "title": "S3 bucket policies deny non-TLS requests", "family": "Storage"},
+        {"id": "logging.cloudtrail-multi-region", "title": "CloudTrail is enabled in all regions", "family": "Logging"},
+        {"id": "logging.cloudtrail-validation", "title": "CloudTrail log file validation is enabled", "family": "Logging"},
+        {"id": "logging.cloudtrail-encryption", "title": "CloudTrail logs are encrypted at rest with KMS", "family": "Logging"},
+        {"id": "logging.kms-key-rotation", "title": "Rotation for customer-managed KMS keys is enabled", "family": "Logging"},
+        {"id": "logging.flow-logs", "title": "VPC flow logging is enabled in all VPCs", "family": "Logging"},
+        {"id": "network.no-open-admin-ports", "title": "Security groups do not allow unrestricted ingress to administrative ports", "family": "Networking"},
+        {"id": "network.default-sg-restricted", "title": "The default security group restricts all traffic", "family": "Networking"}
+      ]
+    },
+    {
+      "id": "cis-azure",
+      "name": "CIS Microsoft Azure Foundations Benchmark",
+      "version": "unpinned-seed",
+      "source": "https://www.cisecurity.org/benchmark/azure",
+      "authoritative": false,
+      "controls": [
+        {"id": "iam.mfa-privileged", "title": "MFA is enabled for privileged directory users", "family": "Identity and Access Management"},
+        {"id": "iam.guest-review", "title": "Guest user access is reviewed and restricted", "family": "Identity and Access Management"},
+        {"id": "storage.secure-transfer", "title": "Secure transfer required is enabled on storage accounts", "family": "Storage Accounts"},
+        {"id": "storage.public-blob-access", "title": "Public blob access is disabled on storage accounts", "family": "Storage Accounts"},
+        {"id": "storage.min-tls", "title": "Storage accounts enforce a minimum TLS version", "family": "Storage Accounts"},
+        {"id": "logging.activity-log-retention", "title": "Activity log retention is configured and protected", "family": "Logging and Monitoring"},
+        {"id": "logging.diagnostic-settings", "title": "Diagnostic settings capture appropriate categories", "family": "Logging and Monitoring"},
+        {"id": "network.no-open-management-ports", "title": "Network security groups do not permit unrestricted management access", "family": "Networking"},
+        {"id": "defender.enabled", "title": "Microsoft Defender for Cloud plans are enabled", "family": "Microsoft Defender for Cloud"}
+      ]
+    },
+    {
+      "id": "cis-k8s",
+      "name": "CIS Kubernetes Benchmark",
+      "version": "unpinned-seed",
+      "source": "https://www.cisecurity.org/benchmark/kubernetes",
+      "authoritative": false,
+      "controls": [
+        {"id": "rbac.least-privilege", "title": "RBAC roles avoid wildcard verbs and resources", "family": "RBAC and Service Accounts"},
+        {"id": "rbac.no-cluster-admin-binding", "title": "cluster-admin is bound only where required", "family": "RBAC and Service Accounts"},
+        {"id": "rbac.default-sa-no-automount", "title": "Default service account tokens are not auto-mounted", "family": "RBAC and Service Accounts"},
+        {"id": "pod.no-privileged", "title": "Containers do not run as privileged", "family": "Pod Security Standards"},
+        {"id": "pod.no-host-namespaces", "title": "Pods do not share the host network, PID or IPC namespaces", "family": "Pod Security Standards"},
+        {"id": "pod.run-as-non-root", "title": "Containers run as a non-root user", "family": "Pod Security Standards"},
+        {"id": "pod.read-only-root-fs", "title": "Containers use a read-only root filesystem", "family": "Pod Security Standards"},
+        {"id": "network.default-deny", "title": "Namespaces define a default-deny NetworkPolicy", "family": "Network Policies"},
+        {"id": "secrets.no-env-secrets", "title": "Secrets are mounted as files rather than environment variables", "family": "Secrets Management"}
+      ]
+    }
+  ]
+}

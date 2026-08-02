@@ -1,0 +1,33 @@
+name: Schema change
+description: Propose a change to the finding schema (requires an ADR)
+labels: ["schema", "needs-adr"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The schema is a published contract. Every scanner emits against it and every
+        consumer deserializes from it, so changes ripple across the ecosystem.
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of change
+      options:
+        - Additive (new optional field with a default)
+        - Breaking (rename, removal, retype, or derivation change)
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Downstream impact
+      description: >
+        Which repositories break? Does stored history in basalt-warehouse remain valid?
+        A change to how fingerprint or urn is derived invalidates existing history.
+    validations:
+      required: true
