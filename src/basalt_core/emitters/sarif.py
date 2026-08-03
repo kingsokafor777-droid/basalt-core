@@ -55,7 +55,7 @@ class SarifEmitter(Emitter):
                         "driver": {
                             "name": result.metadata.scanner,
                             "version": result.metadata.scanner_version,
-                            "informationUri": "https://github.com/kingsokafor777-droid/basalt-core",
+                            "informationUri": "https://github.com/basalt-sec/basalt-core",
                             "rules": rules,
                         }
                     },

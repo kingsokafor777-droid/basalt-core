@@ -11,7 +11,7 @@ Pre-1.0, only the latest minor version receives security fixes.
 ## Reporting a vulnerability
 
 Please report suspected vulnerabilities through
-[GitHub private vulnerability reporting](https://github.com/kingsokafor777-droid/basalt-core/security/advisories/new)
+[GitHub private vulnerability reporting](https://github.com/basalt-sec/basalt-core/security/advisories/new)
 rather than a public issue.
 
 Include the affected version, reproduction steps, and what an attacker gains. You should

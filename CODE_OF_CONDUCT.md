@@ -33,7 +33,7 @@ Maintainers are responsible for clarifying and enforcing these standards and wil
 appropriate corrective action in response to any behaviour they deem inappropriate.
 
 Report unacceptable behaviour by opening a private report through
-[GitHub's reporting flow](https://github.com/kingsokafor777-droid/basalt-core/security/advisories/new)
+[GitHub's reporting flow](https://github.com/basalt-sec/basalt-core/security/advisories/new)
 or by contacting a maintainer directly. All complaints will be reviewed and investigated
 promptly and fairly, and the reporter's privacy will be respected.
 

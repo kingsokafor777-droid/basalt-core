@@ -26,6 +26,43 @@ class TestResourceUrn:
             "arn%3Aaws%3As3%3A%3A%3Abasalt-example-bucket"
         )
 
+    @pytest.mark.parametrize(
+        "uid",
+        [
+            "arn:aws:cloudtrail:ca-central-1:123456789012:trail/*",
+            "bucket name with spaces",
+            "key/with/slashes",
+            "weird!@#$%^&*()chars",
+            "unicode-café-ñ",
+            "100% legitimate",
+            "-",
+            "trailing-",
+            "a:b:c:d:e:f:g",
+        ],
+    )
+    def test_urn_round_trips_for_arbitrary_uids(self, uid: str) -> None:
+        """Escaping must be lossless, not merely safe.
+
+        Substituting unsafe characters would silently collapse distinct resources onto
+        one URN, and the URN is a join key downstream.
+        """
+        ref = ResourceRef(provider=Provider.AWS, resource_type="T", uid=uid)
+        assert len(ref.urn.split(":")) == 7
+        assert ResourceRef.parse_urn(ref.urn).uid == uid
+
+    def test_wildcard_uid_survives_round_trip(self) -> None:
+        ref = ResourceRef(
+            provider=Provider.AWS,
+            resource_type="AWS::CloudTrail::Trail",
+            uid="arn:aws:cloudtrail:ca-central-1:123456789012:trail/*",
+        )
+        assert ResourceRef.parse_urn(ref.urn).uid.endswith("trail/*")
+
+    def test_distinct_uids_never_collide(self) -> None:
+        a = ResourceRef(provider=Provider.AWS, resource_type="T", uid="a*b")
+        b = ResourceRef(provider=Provider.AWS, resource_type="T", uid="a_b")
+        assert a.urn != b.urn
+
     def test_urn_round_trips(self, bucket: ResourceRef) -> None:
         parsed = ResourceRef.parse_urn(bucket.urn)
         assert parsed.uid == bucket.uid
@@ -40,7 +77,8 @@ class TestResourceUrn:
         assert parsed.region is None
         assert parsed.uid == tf_file.uid
 
-    def test_literal_percent_is_escaped(self) -> None:
+    def test_literal_percent_sequence_is_escaped(self) -> None:
+        """A uid that already looks percent-encoded must not be double-decoded."""
         ref = ResourceRef(provider=Provider.AWS, resource_type="T", uid="a%3Ab")
         assert ResourceRef.parse_urn(ref.urn).uid == "a%3Ab"
 

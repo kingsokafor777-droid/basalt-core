@@ -12,6 +12,7 @@ import hashlib
 import re
 from datetime import datetime, timezone
 from typing import Any
+from urllib.parse import quote, unquote
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -31,28 +32,37 @@ __all__ = [
     "utc_now",
 ]
 
-_URN_UNSAFE = re.compile(r"[^A-Za-z0-9._@/\-%]")
 SCHEMA_VERSION = "1.0.0"
 URN_ARITY = 7
+
+# Characters left literal inside a URN segment. Everything else -- including ``:``, which
+# would otherwise inject separators from an ARN, and ``*``, which appears in wildcard
+# resource identifiers -- is percent-encoded.
+_URN_SAFE_CHARS = "._@/-"
+
+#: A segment that is exactly this represents an absent value.
+_ABSENT = "-"
 
 
 def _escape_segment(value: str | None) -> str:
     """Make a value safe to place between URN colons.
 
-    ``%`` is escaped first so the escaping is unambiguous, then ``:`` -- without which
-    an ARN or a CloudFormation type name would inject extra separators and destroy the
-    fixed arity that makes the URN parseable.
+    Percent-encoding rather than character substitution, so the transform is lossless
+    and :func:`_unescape_segment` genuinely inverts it. Substituting unsafe characters
+    for ``_`` would silently collapse distinct resources onto one URN.
     """
     if not value:
-        return "-"
-    escaped = value.replace("%", "%25").replace(":", "%3A")
-    return _URN_UNSAFE.sub("_", escaped)
+        return _ABSENT
+    if value == _ABSENT:
+        # Distinguish a literal "-" from an absent segment.
+        return "%2D"
+    return quote(value, safe=_URN_SAFE_CHARS)
 
 
 def _unescape_segment(value: str) -> str | None:
-    if value == "-":
+    if value == _ABSENT:
         return None
-    return value.replace("%3A", ":").replace("%25", "%")
+    return unquote(value)
 
 
 def utc_now() -> datetime:

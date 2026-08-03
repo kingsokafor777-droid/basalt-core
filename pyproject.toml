@@ -4,12 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "basalt-core"
-version = "0.1.0"
+version = "0.1.1"
 description = "Normalized security finding schema, risk model, control catalog and scanner interface for the Basalt platform."
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
-authors = [{ name = "Kingsley Ekene" }]
+authors = [{ name = "Kingsley Okafor" }]
 keywords = ["security", "cspm", "sarif", "ocsf", "compliance", "cloud-security"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -39,10 +39,10 @@ dev = [
 basalt = "basalt_core.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/kingsokafor777-droid/basalt-core"
-Source = "https://github.com/kingsokafor777-droid/basalt-core"
-Issues = "https://github.com/kingsokafor777-droid/basalt-core/issues"
-Changelog = "https://github.com/kingsokafor777-droid/basalt-core/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/basalt-sec/basalt-core"
+Source = "https://github.com/basalt-sec/basalt-core"
+Issues = "https://github.com/basalt-sec/basalt-core/issues"
+Changelog = "https://github.com/basalt-sec/basalt-core/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/basalt_core"]

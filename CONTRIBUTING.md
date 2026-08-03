@@ -7,7 +7,7 @@ and new emitters are easy, schema changes are not.
 ## Setup
 
 ```bash
-git clone https://github.com/kingsokafor777-droid/basalt-core
+git clone https://github.com/basalt-sec/basalt-core
 cd basalt-core
 make install
 make check

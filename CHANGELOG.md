@@ -9,6 +9,20 @@ breaking schema change requires a major package release and an ADR.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-08-02
+
+### Fixed
+
+- `ResourceRef` URN escaping is now lossless. Unsafe characters were previously replaced
+  with `_`, which meant `parse_urn` did not actually invert `urn` and — more seriously —
+  two distinct resources (`a*b` and `a_b`) could collapse onto the same URN. Since the URN
+  is a join key in `basalt-warehouse`, that was a silent data-integrity defect. Segments are
+  now percent-encoded. Found by the ecosystem contract tests in `basalt-aws`.
+
+  **Note:** URNs for resources containing characters outside `[A-Za-z0-9._@/-]` change
+  with this release, and so do their fingerprints. Any history stored under 0.1.0 for such
+  resources will not match. Rescan rather than migrate.
+
 ### Changed
 
 - Lowered the supported Python floor from 3.11 to 3.10 so that Ubuntu 22.04 LTS can run
@@ -38,5 +52,6 @@ Initial release. Schema version `1.0.0`.
 - `basalt` CLI: `validate`, `convert`, `controls`, `scanners`, `schema`.
 - ADRs 0001-0005 recording the schema, scoring, wire format, plugin and catalog decisions.
 
-[Unreleased]: https://github.com/kingsokafor777-droid/basalt-core/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/kingsokafor777-droid/basalt-core/releases/tag/v0.1.0
+[Unreleased]: https://github.com/basalt-sec/basalt-core/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/basalt-sec/basalt-core/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/basalt-sec/basalt-core/releases/tag/v0.1.0

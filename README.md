@@ -1,6 +1,6 @@
 # Basalt Core
 
-[![CI](https://github.com/kingsokafor777-droid/basalt-core/actions/workflows/ci.yml/badge.svg)](https://github.com/kingsokafor777-droid/basalt-core/actions/workflows/ci.yml)
+[![CI](https://github.com/basalt-sec/basalt-core/actions/workflows/ci.yml/badge.svg)](https://github.com/basalt-sec/basalt-core/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/basalt-core.svg)](https://pypi.org/project/basalt-core/)
 [![Python](https://img.shields.io/pypi/pyversions/basalt-core.svg)](https://pypi.org/project/basalt-core/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
@@ -264,7 +264,7 @@ depend on — the entire runtime dependency set is Pydantic.
 ## Development
 
 ```bash
-git clone https://github.com/kingsokafor777-droid/basalt-core
+git clone https://github.com/basalt-sec/basalt-core
 cd basalt-core
 make install     # editable install with dev extras
 make check       # lint, type-check and test
